@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.lanou.fee.dao.FeeMapper">
+    <select id="cost_All" resultType="com.lanou.fee.bean.Cost">
+        select * from cost
+    </select>
+    <select id="cost_Byid" parameterType="String" resultType="com.lanou.fee.bean.Cost">
+        select * from cost where cost_id =#{id}
+
+    </select>
+
+    <update id="cost_update" parameterType="com.lanou.fee.bean.Cost" >
+        update cost set name=#{name} ,cost_type=#{cost_type},
+        base_duration=#{base_duration} ,base_cost=#{base_cost} ,unit_cost=#{unit_cost} where cost_id=#{cost_id}
+    </update>
+    <delete id="cost_deleteByid" parameterType="String">
+        delete from cost where cost_id=#{cost_id}
+    </delete>
+    <insert id="cost_insert" parameterType="com.lanou.fee.bean.Cost">
+        insert into cost (cost_id,name,base_duration,base_cost,unit_cost,descr,cost_type,status,creatime) VALUES
+        (null,#{name},#{base_duration},#{base_cost},#{unit_cost},#{descr},#{cost_type},#{status},#{creatime})
+
+    </insert>
+
+</mapper>
