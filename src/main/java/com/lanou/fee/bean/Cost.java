@@ -27,7 +27,7 @@ public class Cost {
                 ", status='" + status + '\'' +
                 ", descr='" + descr + '\'' +
                 ", creatime='" + creatime + '\'' +
-                ", starttime='" + starttime + '\'' +
+                ", startime='" + startime + '\'' +
                 ", cost_type='" + cost_type + '\'' +
                 '}';
     }
@@ -96,12 +96,12 @@ public class Cost {
         this.creatime = creatime;
     }
 
-    public String getStarttime() {
-        return starttime;
+    public String getstartime() {
+        return startime;
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime;
+    public void setstartime(String startime) {
+        this.startime = startime;
     }
 
     public String getCost_type() {
@@ -112,5 +112,5 @@ public class Cost {
         this.cost_type = cost_type;
     }
 
-    private String cost_id,name,base_duration,base_cost,unit_cost,status,descr,creatime,starttime,cost_type;
+    private String cost_id,name,base_duration,base_cost,unit_cost,status,descr,creatime,startime,cost_type;
 }

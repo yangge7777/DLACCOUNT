@@ -10,6 +10,9 @@
         select * from cost where cost_id =#{id}
 
     </select>
+    <select id="cost_ByName" parameterType="String" resultType="com.lanou.fee.bean.Cost">
+        select * from cost where name=#{name}
+    </select>
 
     <update id="cost_update" parameterType="com.lanou.fee.bean.Cost" >
         update cost set name=#{name} ,cost_type=#{cost_type},
@@ -23,5 +26,7 @@
         (null,#{name},#{base_duration},#{base_cost},#{unit_cost},#{descr},#{cost_type},#{status},#{creatime})
 
     </insert>
-
+    <update id="cost_updateStatus" >
+        UPDATE cost set status='2' ,startime=#{startime} where cost_id=#{id}
+    </update>
 </mapper>

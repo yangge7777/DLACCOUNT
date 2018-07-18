@@ -73,15 +73,26 @@ public class FeeServiceImpl implements FeeService{
         Date day=new Date();
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(df.format(day));
+
         cost.setCreatime(df.format(day));
         cost.getCreatime();
+        if (mapper.cost_ByName(cost.getName())!=null){
+            return false;
+        }
         try {
             mapper.cost_insert(cost);
             return true;
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public void cost_updateStatus(String id) {
+        Date day=new Date();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+         mapper.cost_updateStatus(id,df.format(day));
     }
 
 }

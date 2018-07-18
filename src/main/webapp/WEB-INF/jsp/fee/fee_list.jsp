@@ -19,16 +19,21 @@
             }
 
             //启用
-            function startFee() {
+            function startFee(aa) {
                 var r = window.confirm("确定要启用此资费吗？资费启用后将不能修改和删除。");
-                document.getElementById("operate_result_info").style.display = "block";
+                if (r){
+                    window.location.href="cost_updateStatus.do?method="+aa
+                }else {
+                    alert("不启用你点他干啥!!干啥!!!我还得给你写个else 烦不烦!!烦不烦!!啊?!!!烦不烦!!")
+                }
+
             }
             //删除
-            function deleteFee() {
+            function deleteFee(aa) {
                 var r = window.confirm("确定要删除此资费吗？");
                 if(r){
-
-                    document.getElementById("operate_result_info").style.display = "block";
+                    window.location.href="cost_delete.do?method="+aa
+//                    document.getElementById("operate_result_info").style.display = "block";
                 }else {
 
                 }
@@ -49,7 +54,7 @@
                 <li><a href="../role/role_list.html" class="role_off"></a></li>
                 <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
                 <li><a href="<%= request.getContextPath()%>/fee/feelist.do" class="fee_on"></a></li>
-                <li><a href="../account/account_list.html" class="account_off"></a></li>
+                <li><a href="../account/account_list.jsp" class="account_off"></a></li>
                 <li><a href="../service/service_list.html" class="service_off"></a></li>
                 <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
                 <li><a href="../report/report_list.html" class="report_off"></a></li>
@@ -92,23 +97,31 @@
                     <c:forEach var="cost" items="${costAll}">
                         <tr>
                             <td>${cost.cost_id}</td>
-                            <td><a href="fee_detail.html">${cost.name}</a></td>
+                            <td><a href="<c:url value='/fee/tofee_detail.do?method=${cost.cost_id}'/> ">${cost.name}</a></td>
                             <td>${cost.base_duration} ${cost.base_duration ==null ? "" : "小时"}</td>
                             <td>${cost.base_cost}  ${cost.base_cost ==null ? "" : "元"}</td>
                             <td>${cost.unit_cost}  ${cost.unit_cost ==null ? "" : "元/小时"}</td>
                             <td>${cost.creatime}</td>
-                            <td>${cost.starttime}</td>
+                            <td>${cost.startime}</td>
                             <c:if test="${cost.status==1}">
                                 <td>暂停</td>
                             </c:if>
                             <c:if test="${cost.status==2}">
                                 <td>开通</td>
                             </c:if>
-                            <td>
-                                <input type="button" value="启用" class="btn_start" onclick="startFee();" />
-                                <input type="button" value="修改" class="btn_modify" onclick="location.href='<c:url value="/fee/tofee_modi.do?method=${cost.cost_id}"/> '" />
-                                <input type="button" value="删除" class="btn_delete" onclick="location.href='<c:url value="/fee/cost_delete.do?method=${cost.cost_id}"/> '" />
+                            <c:if test="${cost.status==1}">
+                            <td  >
+                                    <input type="button" value="启用" class="btn_start" onclick="startFee(${cost.cost_id});" />
+                                    <input type="button" value="修改" class="btn_modify" onclick="location.href='<c:url value="/fee/tofee_modi.do?method=${cost.cost_id}"/> '" />
+                                    <input type="button" value="删除" class="btn_delete" onclick="deleteFee(${cost.cost_id})"/>
+                        <%--location.href='<c:url value="/fee/cost_delete.do?method=${cost.cost_id}--%>
                             </td>
+                            </c:if>
+                            <c:if test="${cost.status==2}">
+                                <td>
+
+                                </td>
+                            </c:if>
                         </tr>
 
 
@@ -139,5 +152,6 @@
             <p>[源自北美的技术，最优秀的师资，最真实的企业环境，最适用的实战项目]</p>
             <p>版权所有(C)云科技有限公司</p>
         </div>
+
     </body>
 </html>

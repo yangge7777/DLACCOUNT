@@ -53,6 +53,15 @@ public class FeeController {
         return modelAndView.addObject("cost", service.cost_Byid(request.getParameter("method")));
 
     }
+    //跳转到detail界面
+    @RequestMapping("/tofee_detail.do")
+    public ModelAndView tofee_detail(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("fee/fee_detail");
+        return modelAndView.addObject("cost",service.cost_Byid(request.getParameter("method")));
+    }
+
+
     //修改资费中内容
     @RequestMapping(value = "/cost_update.do",method = RequestMethod.POST)
     public ModelAndView cost_update(Cost cost) {
@@ -68,6 +77,34 @@ public class FeeController {
         }
 
     }
+    //向fee列表中增加数据
+    @RequestMapping(value = "/cost_insert.do",method = RequestMethod.POST)
+    public ModelAndView cost_insert(Cost cost){
+
+        ModelAndView modelAndView = new ModelAndView();
+        boolean flag = service.cost_insert(cost);
+        if (flag){
+            modelAndView.setViewName("fee/fee_list");
+            return modelAndView.addObject("costAll", service.cost_All());
+        }else {
+            modelAndView.setViewName("fee/fee_add");
+            return modelAndView.addObject("msg", true);
+        }
+
+
+    }
+
+    //fee列表启用Byid
+    @RequestMapping(value = "/cost_updateStatus.do")
+    public ModelAndView cost_updateStatus(HttpServletRequest request){
+        service.cost_updateStatus(request.getParameter("method"));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("fee/fee_list");
+        return modelAndView.addObject("costAll", service.cost_All());
+    }
+
+
+
     //删除fee列表某条数据
     @RequestMapping("/cost_delete.do")
     public ModelAndView cost_delete(HttpServletRequest request){
@@ -80,16 +117,10 @@ public class FeeController {
     public String tofee_add(){
         return "fee/fee_add";
     }
-    //向fee列表中增加数据
 
-    @RequestMapping(value = "/cost_insert.do",method = RequestMethod.POST)
-    public ModelAndView cost_insert(Cost cost){
-        System.out.println(cost.getDescr());
-        boolean flag = service.cost_insert(cost);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("fee/fee_list");
-        return modelAndView.addObject("costAll", service.cost_All());
-    }
+
+
+
 
 
 }

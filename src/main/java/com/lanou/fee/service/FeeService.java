@@ -28,5 +28,6 @@ public interface FeeService {
     void cost_deleteByid(String id);
 
     boolean cost_insert(Cost cost);
+    void cost_updateStatus(String id);
 
 }

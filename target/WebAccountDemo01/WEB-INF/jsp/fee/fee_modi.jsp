@@ -12,13 +12,8 @@
         <link type="text/css" rel="stylesheet" media="all" href="<%=request.getContextPath()%>/styles/global_color.css" />
 
         <script language="javascript" type="text/javascript" >
+
             //保存结果的提示
-            msg();
-            function msg() {
-                if (!"${msg}"){
-                    alert("修改失败")
-                }
-            }
             function showResult() {
                 var cost_type= $("input[name='radFeeType']:checked").val()
                 $("#cost_type").val(cost_type);
@@ -105,11 +100,11 @@
                 </div>
                 <div class="text_info clearfix"><span>资费类型：</span></div>
                 <div class="input_info fee_type">
-                    <input type="radio" name="radFeeType" id="monthly" value="1" onclick="feeTypeChange(1);" />
+                    <input type="radio" name="radFeeType" id="monthly"   value="1" onclick="feeTypeChange(1);" />
                     <label for="monthly">包月</label>
-                    <input type="radio" name="radFeeType" checked="checked" id="package" value="2" onclick="feeTypeChange(2);" />
+                    <input type="radio" name="radFeeType"  id="package"   value="2" onclick="feeTypeChange(2);" />
                     <label for="package">套餐</label>
-                    <input type="radio" name="radFeeType" id="timeBased" value="3" onclick="feeTypeChange(3);" />
+                    <input type="radio" name="radFeeType" id="timeBased"  value="3" onclick="feeTypeChange(3);" />
                     <label for="timeBased">计时</label>
                 </div>
                 <input id="cost_type" type="hidden" name="cost_type" value="">
@@ -152,5 +147,21 @@
             <br />
             <span>版权所有(C)云科技有限公司 </span>
         </div>
+    <script type="text/javascript" language="javascript">
+
+        function radio() {
+            var cost_type =  "${cost.cost_type}";
+            if(cost_type=='1'){
+                $("#monthly").attr("checked",'checked')
+            }
+            if(cost_type=='2'){
+                $("#package").attr("checked",'checked')
+            }
+            if(cost_type=='3'){
+                $("#timeBased").attr("checked",'checked')
+            }
+        }
+        radio();
+    </script>
     </body>
 </html>

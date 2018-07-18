@@ -15,16 +15,16 @@
                 var cost_type= $("input[name='radFeeType']:checked").val()
                $("#cost_type").val(cost_type);
                 $("form").submit();
-                showResultDiv(true);
+//                showResultDiv(true);
                 window.setTimeout("showResultDiv(false);", 3000);
             }
-            function showResultDiv(flag) {
-                var divResult = document.getElementById("save_result_info");
-                if (flag)
-                    divResult.style.display = "block";
-                else
-                    divResult.style.display = "none";
-            }
+//            function showResultDiv(flag) {
+//                var divResult = document.getElementById("save_result_info");
+//                if (flag)
+//                    divResult.style.display = "block";
+//                else
+//                    divResult.style.display = "none";
+//            }
 
             //切换资费类型
             function feeTypeChange(type) {
@@ -74,7 +74,7 @@
                 <li><a href="../role/role_list.html" class="role_off"></a></li>
                 <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
                 <li><a href="<%= request.getContextPath()%>/fee/feelist.do" class="fee_on"></a></li>
-                <li><a href="../account/account_list.html" class="account_off"></a></li>
+                <li><a href="../account/account_list.jsp" class="account_off"></a></li>
                 <li><a href="../service/service_list.html" class="service_off"></a></li>
                 <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
                 <li><a href="../report/report_list.html" class="report_off"></a></li>

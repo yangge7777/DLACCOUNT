@@ -15,16 +15,16 @@
                 var cost_type= $("input[name='radFeeType']:checked").val()
                $("#cost_type").val(cost_type);
                 $("form").submit();
-                showResultDiv(true);
+//                showResultDiv(true);
                 window.setTimeout("showResultDiv(false);", 3000);
             }
-            function showResultDiv(flag) {
-                var divResult = document.getElementById("save_result_info");
-                if (flag)
-                    divResult.style.display = "block";
-                else
-                    divResult.style.display = "none";
-            }
+//            function showResultDiv(flag) {
+//                var divResult = document.getElementById("save_result_info");
+//                if (flag)
+//                    divResult.style.display = "block";
+//                else
+//                    divResult.style.display = "none";
+//            }
 
             //切换资费类型
             function feeTypeChange(type) {
