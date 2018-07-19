@@ -34,29 +34,29 @@
             <form action="" method="" class="main_form">
                 <!--必填项-->
                 <div class="text_info clearfix"><span>账务账号ID：</span></div>
-                <div class="input_info"><input type="text" value="10" readonly class="readonly" /></div>
+                <div class="input_info"><input type="text" value="${account.id}" readonly class="readonly" /></div>
                 <div class="text_info clearfix"><span>姓名：</span></div>
-                <div class="input_info"><input type="text" value="张三" readonly class="readonly" /></div>
+                <div class="input_info"><input type="text" value="${account.real_name}" readonly class="readonly" /></div>
                 <div class="text_info clearfix"><span>身份证：</span></div>
                 <div class="input_info">
-                    <input type="text" value="230198765432123456" readonly class="readonly" />
+                    <input type="text" value="${account.idcard_no}" readonly class="readonly" />
                 </div>
                 <div class="text_info clearfix"><span>登录账号：</span></div>
                 <div class="input_info">
-                    <input type="text" value="user1" readonly class="readonly" />
+                    <input type="text" value="${account.login_name}" readonly class="readonly" />
                 </div>                   
                 <div class="text_info clearfix"><span>电话：</span></div>
                 <div class="input_info">
-                    <input type="text" class="width200 readonly" readonly value="13687865435" />
+                    <input type="text" class="width200 readonly" readonly value="${account.telephone}" />
                 </div>
                 <div class="text_info clearfix"><span>推荐人账务账号ID：</span></div>
-                <div class="input_info"><input type="text" readonly class="readonly" value="5" /></div>
+                <div class="input_info"><input type="text" readonly class="readonly" value="${account.recommender_id}" /></div>
                 <div class="text_info clearfix"><span>推荐人身份证号码：</span></div>
                 <div class="input_info"><input type="text" readonly class="readonly" value="230198765432123456" /></div>
                 <div class="text_info clearfix"><span>状态：</span></div>
                 <div class="input_info">
                     <select disabled>
-                        <option>开通</option>
+                        <option selected="selected">开通</option>
                         <option>暂停</option>
                         <option>删除</option>
                     </select>                        

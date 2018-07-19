@@ -153,12 +153,15 @@
             var cost_type =  "${cost.cost_type}";
             if(cost_type=='1'){
                 $("#monthly").attr("checked",'checked')
+                feeTypeChange(1)
             }
             if(cost_type=='2'){
                 $("#package").attr("checked",'checked')
+                feeTypeChange(2)
             }
             if(cost_type=='3'){
                 $("#timeBased").attr("checked",'checked')
+                feeTypeChange(3)
             }
         }
         radio();

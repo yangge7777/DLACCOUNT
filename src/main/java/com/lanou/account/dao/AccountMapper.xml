@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.lanou.account.dao.AccountMapper">
+                <select id="account_All" resultType="com.lanou.account.bean.Account">
+                        select * from account
+                </select>
+
+
+
+        <select id="account_search" parameterType="com.lanou.account.bean.SeachAccount"
+                resultType="com.lanou.account.bean.Account">
+                select * from account
+                 <trim prefix="where" prefixOverrides="and | or" >
+                     <if test=" idcard_no != null and idcard_no != '' and idcard_no != '不验证'">
+                            and idcard_no like  "%"#{idcard_no}"%"
+                     </if>
+                      <if test=" real_name != null and real_name != '' and real_name != '不验证'">
+                              and real_name like "%"#{real_name}"%"
+                      </if>
+                         <if test=" login_name != null and login_name != '' and login_name != '不验证'">
+                                 and login_name like "%"#{login_name}"%"
+                         </if>
+                     and  status = ${status}
+                 </trim>
+        </select>
+
+        <update id="account_Status" >
+            update account set status=#{status} where  id=#{id}
+        </update>
+        <update id="account_changetime" parameterType="com.lanou.account.bean.Account">
+            update account
+            <trim prefix="set" suffixOverrides="," >
+                <if test=" create_date != null and create_date != '' ">
+                    create_date =#{create_date},
+                </if>
+                <if test=" pause_date != null and pause_date != '' ">
+                    pause_date =#{pause_date},
+                </if>
+                <if test=" close_date != null and close_date != '' ">
+                    close_date =#{close_date},
+                </if>
+                id=#{id},
+            </trim>
+            where id=#{id}
+
+        </update>
+
+        <update id="account_cleartime" >
+            update account
+            <trim prefix="set" suffixOverrides=",">
+                <if test="time == 'create_date' ">
+                    create_date = null ,
+                </if>
+                <if test="time == 'pause_date' ">
+                    pause_date = null ,
+                </if>
+                <if test="time == 'close_date' ">
+                    close_date = null ,
+                </if>
+               id=#{id},
+            </trim>
+            where id= #{id}
+        </update>
+
+        <select id="account_Byid" parameterType="String" resultType="com.lanou.account.bean.Account">
+            select * from account where id =#{id}
+        </select>
+</mapper>

@@ -16,14 +16,14 @@ package com.lanou.account.bean;
  * My Dear Taoism's Friend .Please SitDown.
  */
 public class Account {
-    private String account_id,recommender_id,login_name,login_passwd,status,create_date,
+    private String id,recommender_id,login_name,login_passwd,status,create_date,
             pause_date,close_date,real_name,idcard_no,birthdate,gender,occupation,
             telephone,email,mailaddress,zipcode,qq,last_login_time,last_login_ip;
 
     @Override
     public String toString() {
         return "Account{" +
-                "account_id='" + account_id + '\'' +
+                "id='" + id + '\'' +
                 ", recommender_id='" + recommender_id + '\'' +
                 ", login_name='" + login_name + '\'' +
                 ", login_passwd='" + login_passwd + '\'' +
@@ -49,14 +49,14 @@ public class Account {
     public Account() {
     }
 
-    public Account(String account_id, String recommender_id, String login_name,
+    public Account(String id, String recommender_id, String login_name,
                    String login_passwd, String status, String create_date,
                    String pause_date, String close_date, String real_name,
                    String idcard_no, String birthdate, String gender,
                    String occupation, String telephone, String email,
                    String mailaddress, String zipcode, String qq,
                    String last_login_time, String last_login_ip) {
-        this.account_id = account_id;
+        this.id = id;
         this.recommender_id = recommender_id;
         this.login_name = login_name;
         this.login_passwd = login_passwd;
@@ -78,13 +78,13 @@ public class Account {
         this.last_login_ip = last_login_ip;
     }
 
-    public String getAccount_id() {
+    public String getid() {
 
-        return account_id;
+        return id;
     }
 
-    public void setAccount_id(String account_id) {
-        this.account_id = account_id;
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getRecommender_id() {
