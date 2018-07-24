@@ -7,6 +7,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>云科技</title>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.1.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/easying.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.color-2.1.2.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jQueryRotate3.js"></script>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
         <script language="javascript" type="text/javascript">
@@ -36,11 +39,11 @@
         <div id="navi">                        
             <ul id="menu">
                 <li><a href="../index.html" class="index_off"></a></li>
-                <li><a href="../role/role_list.html" class="role_off"></a></li>
+                <li><a href="../role/role_list.jsp" class="role_off"></a></li>
                 <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
                 <li><a href="../fee/fee_list.html" class="fee_off"></a></li>
                 <li><a href="<%= request.getContextPath()%>/account/accountlist.do" class="account_on"></a></li>
-                <li><a href="../service/service_list.html" class="service_off"></a></li>
+                <li><a href="../service/service_list.jsp" class="service_off"></a></li>
                 <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
                 <li><a href="../report/report_list.html" class="report_off"></a></li>
                 <li><a href="../user/user_info.html" class="information_off"></a></li>
@@ -87,7 +90,7 @@
                         <th class="width150">上次登录时间</th>                                                        
                         <th class="width200"></th>
                     </tr>
-                        <c:forEach  var="account" items="${accountAll}">
+                        <c:forEach  var="account" items="${accountAll.list}">
                             <tr>
                                 <td>${account.id}</td>
                                 <td><a href="<%= request.getContextPath()%>/account/toaccount_detail.do?method=${account.id}">${account.real_name}</a></td>
@@ -126,8 +129,11 @@
                             </tr>
                         </c:forEach>
 
+
                 </table>
-                <p>业务说明：<br />
+
+
+                    <p>业务说明：<br />
                 1、创建则开通，记载创建时间；<br />
                 2、暂停后，记载暂停时间；<br />
                 3、重新开通后，删除暂停时间；<br />
@@ -138,17 +144,39 @@
                 </div>                   
                 <!--分页-->
                 <div id="pages">
-                    <a href="#">首页</a>
-        	        <a href="#">上一页</a>
-                    <a href="#" class="current_page">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">下一页</a>
-                    <a href="#">末页</a>
+                    <a  onclick="go(1)" id="sy">首页</a>
+                    <c:choose>
+                        <c:when test="${accountAll.currentPage-1<=0}">
+                            <a   id="syy">上一页</a>
+                        </c:when>
+
+                        <c:when test="${accountAll.currentPage-1>0}">
+                            <a onclick="go(${accountAll.currentPage-1})" id="syy">上一页</a>
+                        </c:when>
+
+                    </c:choose>
+
+                    <yang id="pagess">
+
+                    </yang>
+                    <c:choose>
+                        <c:when test="${accountAll.currentPage<accountAll.pages}">
+                            <a onclick="go(${accountAll.currentPage+1})" id="xyy">下一页</a>
+                        </c:when>
+                        <c:when test="${accountAll.currentPage>=accountAll.pages}">
+                            <a id="xyy">下一页</a>
+                        </c:when>
+                    </c:choose>
+
+                    <a onclick="go(${accountAll.pages})" id="wy">尾页</a>
                 </div>                    
             </form>
+            <%--<form enctype="multipart/form-data" id="batchUpload"  action="<%= request.getContextPath()%>/excel/upload.do" method="post" class="form-horizontal">--%>
+                <%--<button class="btn btn-success btn-xs" id="uploadEventBtn" style="height:26px;"  type="button" >选择文件</button>--%>
+                <%--<input type="file" name="file"  style="width:0px;height:0px;" id="uploadEventFile">--%>
+                <%--<input id="uploadEventPath"  disabled="disabled"  type="text"  style="border: 1px solid #e6e6e6; height: 26px;width: 200px;" >--%>
+            <%--</form>--%>
+            <%--<button type="button" class="btn btn-success btn-sm"  onclick="account.uploadBtn()" >上传</button>--%>
         </div>
         <!--主要区域结束-->
         <div id="footer">
@@ -164,6 +192,79 @@
             $("#status").val(status)
             $("form").submit()
         }
+        pages();
+        function pages() {
+            for(var i =1 ; i<=${accountAll.pages} ; i++){
+
+                $("#pagess").append("<a  onclick='go(this.text)' >"+i+"</a>")
+            }
+        }
+        //跳转
+        function go(currentPage) {
+
+            window.location.href="page"+currentPage+".do?" + "idcard_no=${searchAccount.idcard_no}&"+
+                    "real_name=${searchAccount.real_name}&"+
+                    "login_name=${searchAccount.login_name}&"+
+                    "status=${searchAccount.status}"
+        }
+
+        var Account = function () {
+            this.init = function(){
+
+                //模拟上传excel
+                $("#uploadEventBtn").unbind("click").bind("click",function(){
+                    $("#uploadEventFile").click();
+                });
+                $("#uploadEventFile").bind("change",function(){
+                    $("#uploadEventPath").attr("value",$("#uploadEventFile").val());
+                });
+
+            };
+                //点击上传按钮
+            this.uploadBtn = function(){
+                var uploadEventFile = $("#uploadEventFile").val();
+                if(uploadEventFile == ''){
+                    alert("请选择excel,再上传");
+                }else if(uploadEventFile.lastIndexOf(".xls")<0){//可判断以.xls和.xlsx结尾的excel
+                    alert("只能上传Excel文件");
+                }else{
+//                    !!!!!!!!!!!!!!!!!!!!!!!!!!
+                    var url =  '/<%= request.getContextPath()%>/excel/upload.do';
+                    var formData = new FormData($('form')[1]);
+                    alert(formData)
+                    account.sendAjaxRequest(url,'post',formData);
+                }
+            };
+            this.sendAjaxRequest = function(url,type,data){
+                $.ajax({
+                    url : url,
+                    type : type,
+                    data : data,
+                    dataType:"json",
+                    success : function(result) {
+                        alert( result);
+                    },
+                    error : function() {
+                        alert( "excel上传失败");
+                    },
+                    cache : false,
+                    contentType : false,
+                    processData : false
+                });
+            };
+        }
+        var account;
+        $(function () {
+            account =new Account();
+            account.init();
+            
+        })
+
+
+
+
+
+
     </script>
     </body>
 </html>

@@ -1,5 +1,6 @@
 package com.lanou;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

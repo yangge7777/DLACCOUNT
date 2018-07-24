@@ -16,9 +16,26 @@ package com.lanou.account.bean;
  * My Dear Taoism's Friend .Please SitDown.
  */
 public class Account {
-    private String id,recommender_id,login_name,login_passwd,status,create_date,
-            pause_date,close_date,real_name,idcard_no,birthdate,gender,occupation,
-            telephone,email,mailaddress,zipcode,qq,last_login_time,last_login_ip;
+   private String id;
+   private String recommender_id;
+   private String login_name;
+   private String login_passwd;
+   private String status;
+   private String create_date;
+   private String pause_date;
+   private String close_date;
+   private String real_name;
+   private String idcard_no;
+   private String birthdate;
+   private String gender;
+   private String occupation;
+   private String telephone;
+   private String email;
+   private String mailaddress;
+   private String zipcode;
+   private String qq;
+   private String last_login_time;
+   private String last_login_ip;
 
     @Override
     public String toString() {
@@ -46,40 +63,7 @@ public class Account {
                 '}';
     }
 
-    public Account() {
-    }
-
-    public Account(String id, String recommender_id, String login_name,
-                   String login_passwd, String status, String create_date,
-                   String pause_date, String close_date, String real_name,
-                   String idcard_no, String birthdate, String gender,
-                   String occupation, String telephone, String email,
-                   String mailaddress, String zipcode, String qq,
-                   String last_login_time, String last_login_ip) {
-        this.id = id;
-        this.recommender_id = recommender_id;
-        this.login_name = login_name;
-        this.login_passwd = login_passwd;
-        this.status = status;
-        this.create_date = create_date;
-        this.pause_date = pause_date;
-        this.close_date = close_date;
-        this.real_name = real_name;
-        this.idcard_no = idcard_no;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.occupation = occupation;
-        this.telephone = telephone;
-        this.email = email;
-        this.mailaddress = mailaddress;
-        this.zipcode = zipcode;
-        this.qq = qq;
-        this.last_login_time = last_login_time;
-        this.last_login_ip = last_login_ip;
-    }
-
-    public String getid() {
-
+    public String getId() {
         return id;
     }
 
@@ -155,7 +139,7 @@ public class Account {
         return idcard_no;
     }
 
-    public void setIdcard_no(String idcard_no) {
+    public void setidcard_no(String idcard_no) {
         this.idcard_no = idcard_no;
     }
 

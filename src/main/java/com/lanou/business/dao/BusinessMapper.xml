@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.lanou.business.dao.BusinessMapper">
+<select id="accountAll_byidcard_no" parameterType="String" resultType="com.lanou.account.bean.Account">
+        select *  from account where idcard_no =#{idcard_no}
+</select>
+        <select id="costname_Bystatus1" resultType="com.lanou.fee.bean.Cost">
+                select * from cost where status='1'
+        </select>
+
+        <insert id="insert_service" parameterType="com.lanou.business.bean.Business">
+                insert into service (SERVICEID,ACCOUNT_ID,UNIX_HOST,OS_USERNAME,LOGIN_PASSWD,STATUS,
+                CREATE_DATE,PAUSE_DATE,CLOSE_DATE,COST_ID) VALUES (NULL ,#{ACCOUNT_ID},
+                #{UNIX_HOST},#{OS_USERNAME},#{LOGIN_PASSWD},#{STATUS},#{CREATE_DATE},#{PAUSE_DATE},
+                #{CLOSE_DATE},#{COST_ID})
+        </insert>
+
+        <select id="service_show" resultType="com.lanou.business.bean.BusinessShow">
+          select s.SERVICEID,a.id,a.idcard_no,a.real_name,s.OS_USERNAME,s.STATUS,s.UNIX_HOST,c.name,c.descr
+from SERVICE s left JOIN  account a  ON s.ACCOUNT_ID=a.id LEFT JOIN cost c ON s.COST_ID =c.cost_id limit 0,5;
+        </select>
+        <select id="service_count" resultType="int">
+                select count(*) from service
+        </select>
+
+        <select id="searchlist" resultType="com.lanou.business.bean.BusinessShow">
+        select s.SERVICEID,a.id,a.idcard_no,a.real_name,s.OS_USERNAME,s.STATUS,s.UNIX_HOST,c.name
+from SERVICE s left JOIN  account a  ON s.ACCOUNT_ID=a.id LEFT JOIN cost c ON s.COST_ID =c.cost_id
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test=" b.OS_USERNAME != null and b.OS_USERNAME != ''">
+                        and s.OS_USERNAME like  "%"#{b.OS_USERNAME}"%"
+                </if>
+                <if test=" b.UNIX_HOST != null and b.UNIX_HOST != ''">
+                        and s.UNIX_HOST like  "%"#{b.UNIX_HOST}"%"
+                </if>
+                <if test=" b.idcard_no != null and b.idcard_no != ''">
+                        and a.idcard_no like  "%"#{b.idcard_no}"%"
+                </if>
+                <if test=" b.status != null and b.status != ''">
+                        and s.status =  ${b.status}
+                </if>
+                AND  1=1
+        </trim>
+                order by s.SERVICEID    limit  #{p.beginData},#{p.everyPageCount}
+        </select>
+
+        <select id="search_service_count" parameterType="com.lanou.business.bean.SearchBusniess" resultType="int">
+                select count(*)
+                from SERVICE s left JOIN  account a  ON s.ACCOUNT_ID=a.id LEFT JOIN cost c ON s.COST_ID =c.cost_id
+                <trim prefix="where" prefixOverrides="and | or">
+                        <if test=" OS_USERNAME != null and OS_USERNAME != ''">
+                                and s.OS_USERNAME like  "%"#{OS_USERNAME}"%"
+                        </if>
+                        <if test=" UNIX_HOST != null and UNIX_HOST != ''">
+                                and s.UNIX_HOST like  "%"#{UNIX_HOST}"%"
+                        </if>
+                        <if test=" idcard_no != null and idcard_no != ''">
+                                and a.idcard_no like  "%"#{idcard_no}"%"
+                        </if>
+                        <if test=" status != null and status != ''">
+                                and s.status =  ${status}
+                        </if>
+                        AND  1=1
+                </trim>
+        </select>
+
+
+</mapper>
